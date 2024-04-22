@@ -1,11 +1,11 @@
 package models;
 
-public class Usuario {
+public class Cliente {
     private int idlibro;
     private int id;
     private String domicilio;
 
-    public Usuario(int idlibro, int id, String domicilio){
+    public Cliente(int idlibro, int id, String domicilio){
         this.idlibro = idlibro;
         this.id = id;
         this.domicilio = domicilio;

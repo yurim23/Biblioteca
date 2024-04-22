@@ -2,7 +2,7 @@ package models;
 
 import java.util.ArrayList;
 
-public class Inventario {
+public class Biblioteca {
     private ArrayList<Libro> inventory = new ArrayList<>();
     private int idLibro;
     public boolean addLibro(Libro book){

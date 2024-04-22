@@ -3,8 +3,8 @@ package models;
 import java.util.ArrayList;
 
 public class Prestamos {
-    private ArrayList<Usuario> prestamo = new ArrayList<>();
-    public void addPrestamo(Usuario cliente){
+    private ArrayList<Cliente> prestamo = new ArrayList<>();
+    public void addPrestamo(Cliente cliente){
         prestamo.add(cliente);
 
     }
@@ -22,7 +22,7 @@ public class Prestamos {
 
 
 
-    public ArrayList<Usuario> getPrestamo() {
+    public ArrayList<Cliente> getPrestamo() {
         return prestamo;
     }
 }

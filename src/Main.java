@@ -5,17 +5,17 @@ import java.util.Scanner;
 
 public class Main {
     private static Scanner key = new Scanner(System.in);
-    private static Inventario storage = new Inventario();
+    private static Biblioteca biblioteca = new Biblioteca();
     private static Prestamos prestados = new Prestamos();
     public static void main(String[] args) {
-        short eleccion = 0;
+        short opcion = 0;
             do {
                 System.out.println("1 Administrador");
                 System.out.println("2 Cliente");
                 System.out.println("3 Salir");
                 System.out.println("Identificate");
-                eleccion = key.nextShort();
-                switch (eleccion) {
+                opcion = key.nextShort();
+                switch (opcion) {
                     case 1:
                         do {
                             System.out.println();
@@ -24,10 +24,10 @@ public class Main {
                             System.out.println("2 Añadir Préstamo");
                             System.out.println("3 Actualizar Prestamo");
                             System.out.println("4 Ver Prestamos");
-                            System.out.println("5 Ver Inventario");
+                            System.out.println("5 Ver Biblioteca");
                             System.out.println("6 Salir");
-                            eleccion = key.nextShort();
-                            switch (eleccion) {
+                            opcion = key.nextShort();
+                            switch (opcion) {
                                 case 1:
                                     addLibro();
                                     break;
@@ -48,13 +48,13 @@ public class Main {
                                     System.out.println("Ingrese opción válida");
                                     break;
                             }
-                        } while (eleccion != 6); break;
+                        } while (opcion != 6); break;
                     case 2:
                         do {
-                        System.out.println("1 Ver Inventario");
+                        System.out.println("1 Ver Biblioteca");
                         System.out.println("2 Salir");
-                        eleccion = key.nextShort();
-                        switch (eleccion){
+                        opcion = key.nextShort();
+                        switch (opcion){
                             case 1: verInventario();
                             break;
                             case 2:
@@ -63,26 +63,24 @@ public class Main {
                                 System.out.println("Ingrese una opción válida");
                                 break;
                         }
-                        }while (eleccion != 2);
+                        }while (opcion != 2);
                         break;
                     default:
                         System.out.println("Elige una opción válida");
                 }
-            } while (eleccion != 3);
+            } while (opcion != 3);
 }
     public static void addLibro(){
         System.out.println("Ingrese el nombre del libro");
         key.nextLine();
         String nombre = key.nextLine();
-//        System.out.println("Ingresa el autor del libro");
-//        String autor = key.next();
         System.out.println("Asigne un ID númerico al libro");
         int id = key.nextInt();
         Libro book = new Libro(nombre, id);
-        if (!storage.addLibro(book)){
-            System.out.println("Libro añadido al inventario");
+        if (!biblioteca.addLibro(book)){
+            System.out.println("Libro añadido al biblioteca");
         }else
-            System.out.println("Este ID ya ha sido añadido al inventario");
+            System.out.println("Este ID ya ha sido añadido al biblioteca");
     }
     public static void addPrestamo(){
         System.out.println("Ingrese el ID númerico del libro");
@@ -92,43 +90,43 @@ public class Main {
         key.nextLine();
         System.out.println("Ingrese el domicilio del cliente");
         String domilicio = key.nextLine();
-        Usuario cliente = new Usuario(idlibro, id, domilicio);
-        if (storage.prestarLibro(idlibro)) {
+        Cliente cliente = new Cliente(idlibro, id, domilicio);
+        if (biblioteca.prestarLibro(idlibro)) {
             System.out.println("Registro del préstamo existoso");
             prestados.addPrestamo(cliente);
         }
         else
-            System.out.println("El ID libro no existe el inventario");
+            System.out.println("El ID libro no existe el biblioteca");
     }
     public static void updatePrestamo(){
         System.out.println("Ingrese el ID númerico del libro");
         int idlibro = key.nextInt();
         System.out.println("Ingrese el ID númerico del usuario");
         int id = key.nextInt();
-        if (storage.devolverLibro(idlibro)){
+        if (biblioteca.devolverLibro(idlibro)){
             if (prestados.updatePrestamo(id)){
                 System.out.println("Libro Devuelto");
             } else {
-                storage.prestarLibro(idlibro);
+                biblioteca.prestarLibro(idlibro);
                 System.out.println("Id del usuario incorrecto");
             }
         }else
             System.out.println("Id del libro incorrecto");
     }
     public static void viewPrestamos(){
-        ArrayList<Usuario> loans = prestados.getPrestamo();
-        for (int i = 0; i <loans.size() ; i++) {
-            System.out.println(loans.get(i));
+        ArrayList<Cliente> prestamos = prestados.getPrestamo();
+        for (int i = 0; i <prestamos.size() ; i++) {
+            System.out.println(prestamos.get(i));
         }
-        if (loans.isEmpty())
+        if (prestamos.isEmpty())
             System.out.println("No existen libros prestados");
     }
     public static void verInventario(){
-        ArrayList<Libro> inventario = storage.getInventory();
-            for (int i = 0; i <inventario.size(); i++) {
-                System.out.println(inventario.get(i));
+        ArrayList<Libro> aux = biblioteca.getInventory();
+            for (int i = 0; i <aux.size(); i++) {
+                System.out.println(aux.get(i));
             }
-            if (inventario.isEmpty())
+            if (aux.isEmpty())
                 System.out.println("No hay existencias disponibles");
     }
 }
